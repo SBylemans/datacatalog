@@ -5,6 +5,7 @@ import org.springframework.data.annotation.TypeAlias;
 import org.springframework.data.mongodb.core.index.TextIndexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 @Document(collection = "options")
@@ -15,8 +16,10 @@ public class Option implements Serializable{
     public String id;
 
     @TextIndexed
+    @NotNull
     public String type;
     @TextIndexed
+    @NotNull
     public String value;
 
     public String getType() {
@@ -33,5 +36,13 @@ public class Option implements Serializable{
 
     public void setValue(String value) {
         this.value = value;
+    }
+
+    @Override
+    public String toString() {
+        return "Option{" +
+                "type='" + type + '\'' +
+                ", value='" + value + '\'' +
+                '}';
     }
 }

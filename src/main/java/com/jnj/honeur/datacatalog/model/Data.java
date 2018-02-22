@@ -5,6 +5,7 @@ import org.springframework.data.annotation.TypeAlias;
 import org.springframework.data.mongodb.core.index.TextIndexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.List;
 
@@ -15,10 +16,13 @@ public class Data implements Serializable{
     public String id;
 
     @TextIndexed
+    @NotNull
     public String name;
     @TextIndexed
+    @NotNull
     public List<Option> meta;
     @TextIndexed
+    @NotNull
     public String freeText;
 
     public String getName() {

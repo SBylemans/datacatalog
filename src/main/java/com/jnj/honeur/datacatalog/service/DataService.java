@@ -11,7 +11,7 @@ public interface DataService {
 
     DataView findById(String id);
 
-    DataView save(DataView data);
+    DataView saveData(DataView data);
 
     List<DataView> searchForText(String text);
 

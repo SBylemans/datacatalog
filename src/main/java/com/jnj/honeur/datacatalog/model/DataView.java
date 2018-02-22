@@ -2,6 +2,7 @@ package com.jnj.honeur.datacatalog.model;
 
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
@@ -9,8 +10,11 @@ import java.util.Map;
 @Document(collection = "dataview")
 public class DataView implements Serializable {
 
+    @NotNull
     public String name;
+    @NotNull
     public Map<String, List<String>> meta;
+    @NotNull
     public String freeText;
 
     public Map<String, List<String>> getMeta() {
@@ -35,5 +39,14 @@ public class DataView implements Serializable {
 
     public void setFreeText(String freeText) {
         this.freeText = freeText;
+    }
+
+    @Override
+    public String toString() {
+        return "DataView{" +
+                "name='" + name + '\'' +
+                ", meta=" + meta +
+                ", freeText='" + freeText + '\'' +
+                '}';
     }
 }

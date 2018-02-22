@@ -10,6 +10,7 @@ import org.springframework.data.mongodb.core.query.TextCriteria;
 import org.springframework.data.mongodb.core.query.TextQuery;
 import org.springframework.stereotype.Service;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -47,7 +48,7 @@ public class DataServiceImpl implements DataService{
     }
 
     @Override
-    public DataView save(DataView dataView) {
+    public DataView saveData(@Valid DataView dataView) {
         Data d = dataRepository.save(getDataFromDataView(dataView));
         return getDataViewFromData(d);
     }
@@ -66,7 +67,7 @@ public class DataServiceImpl implements DataService{
     }
 
     @Override
-    public Option saveOption(Option option){
+    public Option saveOption(@Valid Option option){
         return optionsRepository.save(option);
     }
 

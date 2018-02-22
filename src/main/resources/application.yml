@@ -2,3 +2,24 @@ spring:
   data:
     mongodb:
       database: datacatalog
+  thymeleaf:
+    prefix: classpath:/static/
+    suffix: .html
+    encoding: UTF-8
+    mode: LEGACYHTML5
+    cache: false
+server:
+  port: 9995
+shiro:
+  cas: https://localhost:8443/cas
+  server: http://localhost:9995
+  loginUrl: /login.html
+  userNativeSessionManager: true
+  sessionManager:
+    sessionIdUrlRewritingEnabled: false
+  rememberMeManager:
+    cookie:
+      name: "rememberMe"
+datacatalog:
+  security:
+    enabled: false
