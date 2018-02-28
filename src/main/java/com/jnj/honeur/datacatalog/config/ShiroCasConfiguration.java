@@ -1,8 +1,10 @@
 package com.jnj.honeur.datacatalog.config;
 
+import com.jnj.honeur.security.CasAuthorizationGenerator;
 import io.buji.pac4j.filter.CallbackFilter;
 import io.buji.pac4j.filter.SecurityFilter;
 import io.buji.pac4j.realm.Pac4jRealm;
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.AuthorizationException;
 import org.apache.shiro.cache.CacheManager;
 import org.apache.shiro.cache.MemoryConstrainedCacheManager;
@@ -12,6 +14,7 @@ import org.apache.shiro.spring.config.web.autoconfigure.ShiroWebAutoConfiguratio
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.spring.web.config.DefaultShiroFilterChainDefinition;
 import org.apache.shiro.spring.web.config.ShiroFilterChainDefinition;
+import org.apache.shiro.subject.Subject;
 import org.pac4j.cas.client.CasClient;
 import org.pac4j.cas.config.CasConfiguration;
 import org.pac4j.cas.config.CasProtocol;
@@ -26,6 +29,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -56,6 +60,10 @@ public class ShiroCasConfiguration extends ShiroWebAutoConfiguration {
         return "error";
     }
 
+    @ModelAttribute(name = "subject")
+    public Subject subject() {
+        return SecurityUtils.getSubject();
+    }
 
     @Bean
     public Realm realm() {
@@ -123,6 +131,7 @@ public class ShiroCasConfiguration extends ShiroWebAutoConfiguration {
         casClient.setName("CasClient");
         casClient.setIncludeClientNameInCallbackUrl(true);
         casClient.setConfiguration(casConfiguration());
+        casClient.setAuthorizationGenerator(new CasAuthorizationGenerator<>());
         return casClient;
     }
 
@@ -162,10 +171,7 @@ public class ShiroCasConfiguration extends ShiroWebAutoConfiguration {
     }
 
     public Matcher excludedPathMatcherProduction() {
-        return new PathMatcher()
-                .excludeRegex("^.*.html$")
-                .excludeRegex("^.*.js$")
-                .excludePath("/index.html");
+        return new PathMatcher();
     }
 
 

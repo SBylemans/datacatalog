@@ -22,4 +22,4 @@ shiro:
       name: "rememberMe"
 datacatalog:
   security:
-    enabled: false
+    enabled: true

@@ -79,7 +79,7 @@ public class DataServiceImpl implements DataService{
 
     private DataView getDataViewFromData(Data data) {
         DataView d = new DataView();
-        d.setFreeText(data.freeText);
+        d.setFreeText(data.description);
         d.setName(data.name);
         d.setMeta(new HashMap<>());
         for(Option o: data.meta){
@@ -99,7 +99,7 @@ public class DataServiceImpl implements DataService{
     private Data getDataFromDataView(DataView dataView){
         Data d = new Data();
         d.setName(dataView.name);
-        d.setFreeText(dataView.freeText);
+        d.setDescription(dataView.freeText);
         List<Option> optionList = new ArrayList<>();
         for(String key: dataView.meta.keySet()){
             for(String value: dataView.meta.get(key)){

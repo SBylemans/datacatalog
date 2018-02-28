@@ -19,11 +19,10 @@ public class Data implements Serializable{
     @NotNull
     public String name;
     @TextIndexed
-    @NotNull
     public List<Option> meta;
     @TextIndexed
     @NotNull
-    public String freeText;
+    public String description;
 
     public String getName() {
         return name;
@@ -41,11 +40,11 @@ public class Data implements Serializable{
         this.meta = meta;
     }
 
-    public String getFreeText() {
-        return freeText;
+    public String getDescription() {
+        return description;
     }
 
-    public void setFreeText(String freeText) {
-        this.freeText = freeText;
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

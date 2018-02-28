@@ -1,13 +1,10 @@
 package com.jnj.honeur.datacatalog.model;
 
-import org.springframework.data.mongodb.core.mapping.Document;
-
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
-@Document(collection = "dataview")
 public class DataView implements Serializable {
 
     @NotNull
@@ -46,7 +43,7 @@ public class DataView implements Serializable {
         return "DataView{" +
                 "name='" + name + '\'' +
                 ", meta=" + meta +
-                ", freeText='" + freeText + '\'' +
+                ", description='" + freeText + '\'' +
                 '}';
     }
 }
