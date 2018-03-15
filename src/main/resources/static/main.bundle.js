@@ -291,6 +291,9 @@ var DataService = /** @class */ (function () {
     DataService.prototype.getFacetedSearch = function () {
         return this.http.get('http://localhost:9995/api/options');
     };
+    DataService.prototype.saveOption = function (option) {
+        return this.http.post('http://localhost:9995/api/option', option, httpOptions);
+    };
     __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["P" /* Output */])(),
         __metadata("design:type", Object)
@@ -309,7 +312,7 @@ var DataService = /** @class */ (function () {
 /***/ "../../../../../src/app/datacatalog-add/datacatalog-add.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container-fluid\">\n  <form #dataSourceForm=\"ngForm\" (ngSubmit)=\"save()\">\n    <div class=\"form-group row\">\n      <label class=\"col-md-2 col-form-label\">Name</label>\n      <div class=\"col-md-10\">\n        <input [ngModel]=\"data?.name\" (ngModelChange)=\"data.name\" name=\"name\" type=\"text\" required #name=\"ngModel\"/>\n        <span [hidden]=\"name.valid || !name.touched\" class=\"error\">\n        Name is required\n      </span>\n      </div>\n    </div>\n    <div class=\"form-group row\">\n      <label class=\"col-md-2 col-form-label\">Description</label>\n      <div class=\"col-md-10\">\n        <input [ngModel]=\"data?.description\" (ngModelChange)=\"data.description\" name=\"description\" type=\"text\" required #description=\"ngModel\"/>\n        <span [hidden]=\"description.valid || !description.touched\" class=\"error\">\n        A description is required\n      </span>\n      </div>\n    </div>\n    <div class=\"form-group row\" *ngFor=\"let element of elements\">\n      <label class=\"col-md-2 col-form-label\">{{element.title}}</label>\n      <div class=\"col-md-10\">\n        <select [ngModel]=\"data?.meta[element.title]\" (ngModelChange)=\"data.meta[element.title]\" name=\"dataType\">\n          <option [value]=\"t\" *ngFor=\"let t of element.subElements\">{{t.value}}</option>\n        </select>\n        <button class=\"btn btn-primary\" routerLink=\"/options/add\" *ngIf=\"user && user.isAdmin()\">Add option</button>\n      </div>\n    </div>\n    <div class=\"form-group row\">\n      <button type=\"submit\" class=\"btn btn-primary\">Save</button>\n      <button class=\"btn\" (click)=\"cancel()\">Cancel</button>\n    </div>\n  </form>\n</div>\n"
+module.exports = "<div class=\"container-fluid\">\n  <form #dataSourceForm=\"ngForm\" (ngSubmit)=\"save()\">\n    <div class=\"form-group row\">\n      <label class=\"col-md-2 col-form-label\">Name</label>\n      <div class=\"col-md-10\">\n        <input [(ngModel)]=\"data.name\" name=\"name\" type=\"text\" required #name=\"ngModel\"/>\n        <span [hidden]=\"name.valid || !name.touched\" class=\"error\">\n        Name is required\n      </span>\n      </div>\n    </div>\n    <div class=\"form-group row\">\n      <label class=\"col-md-2 col-form-label\">Description</label>\n      <div class=\"col-md-10\">\n        <input [(ngModel)]=\"data.description\" name=\"description\" type=\"text\" required #description=\"ngModel\"/>\n        <span [hidden]=\"description.valid || !description.touched\" class=\"error\">\n        A description is required\n      </span>\n      </div>\n    </div>\n    <div class=\"form-group row\" *ngFor=\"let element of elements\">\n      <label class=\"col-md-2 col-form-label\">{{element.title}}</label>\n      <div class=\"col-md-10\">\n        <select [(ngModel)]=\"data.meta[element.title]\" name=\"dataType\">\n          <option [value]=\"t.value\" *ngFor=\"let t of element.subElements\">{{t.value}}</option>\n        </select>\n        <button class=\"btn btn-primary\" routerLink=\"/options/add\" *ngIf=\"user && user.isAdmin()\">Add option</button>\n      </div>\n    </div>\n    <div class=\"form-group row\">\n      <button type=\"submit\" class=\"btn btn-primary\">Save</button>\n      <button class=\"btn\" (click)=\"cancel()\">Cancel</button>\n    </div>\n  </form>\n</div>\n"
 
 /***/ }),
 
@@ -542,7 +545,7 @@ var DatacatalogComponent = /** @class */ (function () {
 /***/ "../../../../../src/app/options-add/options-add.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<p>\n  options-add works!\n</p>\n"
+module.exports = "<div class=\"container-fluid\">\n  <form #optionsForm=\"ngForm\" (ngSubmit)=\"save()\">\n    <div class=\"form-group row\">\n      <label class=\"col-md-2 col-form-label\">Key</label>\n      <div class=\"col-md-10\">\n        <input [(ngModel)]=\"option.type\" name=\"type\" type=\"text\" required #type=\"ngModel\"/>\n        <span [hidden]=\"type.valid || !type.touched\" class=\"error\">\n        Key is required\n      </span>\n      </div>\n    </div>\n    <div class=\"form-group row\">\n      <label class=\"col-md-2 col-form-label\">Value</label>\n      <div class=\"col-md-10\">\n        <input [(ngModel)]=\"option.value\" name=\"value\" type=\"text\" required #value=\"ngModel\"/>\n        <span [hidden]=\"value.valid || !value.touched\" class=\"error\">\n        A value is required\n      </span>\n      </div>\n    </div>\n\n    <div class=\"form-group row\">\n      <button type=\"submit\" class=\"btn btn-primary\">Save</button>\n      <button type=\"button\" class=\"btn\" (click)=\"cancel()\">Cancel</button>\n    </div>\n  </form>\n</div>\n"
 
 /***/ }),
 
@@ -572,6 +575,9 @@ module.exports = module.exports.toString();
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__user__ = __webpack_require__("../../../../../src/app/user.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__authorization_service__ = __webpack_require__("../../../../../src/app/authorization.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__data_service__ = __webpack_require__("../../../../../src/app/data.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_router__ = __webpack_require__("../../../router/esm5/router.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__angular_forms__ = __webpack_require__("../../../forms/esm5/forms.js");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -584,21 +590,40 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
+
+
 var OptionsAddComponent = /** @class */ (function () {
-    function OptionsAddComponent(authorizationService) {
+    function OptionsAddComponent(dataService, authorizationService, route) {
+        this.dataService = dataService;
         this.authorizationService = authorizationService;
+        this.route = route;
+        this.option = { type: '', value: '', checked: false };
     }
     OptionsAddComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.authorizationService.getUser().subscribe(function (user) { return _this.user = new __WEBPACK_IMPORTED_MODULE_1__user__["a" /* User */](user.name, user.roles); });
     };
+    OptionsAddComponent.prototype.save = function () {
+        if (this.optionsForm.valid) {
+            this.dataService.saveOption(this.option);
+            this.route.navigateByUrl('/datacatalog/add');
+        }
+    };
+    OptionsAddComponent.prototype.cancel = function () {
+        this.route.navigateByUrl('/datacatalog/add');
+    };
+    __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_9" /* ViewChild */])('optionsForm'),
+        __metadata("design:type", __WEBPACK_IMPORTED_MODULE_5__angular_forms__["b" /* NgForm */])
+    ], OptionsAddComponent.prototype, "optionsForm", void 0);
     OptionsAddComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
             selector: 'app-options-add',
             template: __webpack_require__("../../../../../src/app/options-add/options-add.component.html"),
             styles: [__webpack_require__("../../../../../src/app/options-add/options-add.component.less")]
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2__authorization_service__["a" /* AuthorizationService */]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_3__data_service__["a" /* DataService */], __WEBPACK_IMPORTED_MODULE_2__authorization_service__["a" /* AuthorizationService */], __WEBPACK_IMPORTED_MODULE_4__angular_router__["a" /* Router */]])
     ], OptionsAddComponent);
     return OptionsAddComponent;
 }());
